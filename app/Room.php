@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RoomInventory extends Model
+class Room extends Model
 {
 
-    protected $table = 'room_inventories';
+    protected $table = 'rooms';
 
     /**
      * The attributes that are mass assignable.
@@ -15,7 +15,7 @@ class RoomInventory extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id', 'code', 'title', 'description', 'max_persons', 'max_adults', 'max_children', 'max_infants', 'number_units'
+        'property_id', 'room_inventory_id', 'code', 'title', 'description'
     ];
 
     /**
@@ -28,11 +28,11 @@ class RoomInventory extends Model
     ];
 
     /**
-     * Get the rooms for the inventory.
+     * Get the inventory for the room.
      */
-    public function rooms()
+    public function inventory()
     {
-        return $this->hasMany('App\Room');
+        return $this->belongsTo('App\RoomInventory');
     }
 
 }
