@@ -32,3 +32,10 @@
     $router->put('/{property_id}/rateplan/{id}', ['uses' => 'RatePlanController@update']);
     $router->get('/{property_id}/rateplan/{id}', ['uses' => 'RatePlanController@get']);
     $router->delete('/{property_id}/rateplan/{id}', ['uses' => 'RatePlanController@destroy']);
+
+    /* Policies */
+    $router->post('/{property_id}/policy', ['uses' => 'PolicyController@create']);
+    $router->get('/{property_id}/policy', ['uses' => 'PolicyController@get']);
+    $router->put('/{property_id}/policy/{id}', ['uses' => 'PolicyController@update']);
+    $router->get('/{property_id}/policy/{id}', ['uses' => 'PolicyController@get']);
+    $router->delete('/{property_id}/policy/{id}', ['uses' => 'PolicyController@destroy']);
