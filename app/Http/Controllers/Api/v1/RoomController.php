@@ -10,8 +10,9 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use  App\User;
 use  App\RoomInventory;
+use  App\Room;
 
-class RoomInventoryController extends Controller
+class RoomController extends Controller
 {
 
     public function __construct()
@@ -20,7 +21,7 @@ class RoomInventoryController extends Controller
     }
 
     /**
-     * Create a new Room Inventory
+     * Create a new Room
      * @param $property_id
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -30,11 +31,12 @@ class RoomInventoryController extends Controller
 
         try {
             $this->validate($request, [
+                'room_inventory_id' => 'required',
                 'code' => 'required',
                 'title' => 'required',
             ]);
         } catch( Illuminate\Validation\ValidationException $e) {
-            return response()->json(['message' => 'Room Inventory Creation Failed!'], 409);
+            return response()->json(['message' => 'Room Creation Failed!'], 409);
 
         }
 
@@ -45,14 +47,14 @@ class RoomInventoryController extends Controller
         $requestData = array_merge($requestData, $request->all());
 
 
-        $roomInventory = RoomInventory::create($requestData);
-        return response()->json(['room_inventory' => $roomInventory, 'message' => 'CREATED'], 201);
+        $room = Room::create($requestData);
+        return response()->json(['room' => $room, 'message' => 'CREATED'], 201);
 
 
     }
 
     /**
-     * Update an existing room inventory
+     * Update an existing room
      * @param $property_id
      * @param $id
      * @param Request $request
@@ -67,21 +69,21 @@ class RoomInventoryController extends Controller
                 'title' => 'required',
             ]);
         } catch( Illuminate\Validation\ValidationException $e) {
-            return response()->json(['message' => 'Room Inventory Update Failed!'], 409);
+            return response()->json(['message' => 'Room Update Failed!'], 409);
 
         }
 
 
-        $roomInventory = RoomInventory::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-        $roomInventory->update($request->all());
+        $room = Room::where("id", $id)->where("property_id", $property_id)->firstOrFail();
+        $room->update($request->all());
 
-        return response()->json(['room_inventory' => $roomInventory, 'message' => 'UPDATED'], 201);
+        return response()->json(['room' => $room, 'message' => 'UPDATED'], 201);
 
 
     }
 
     /**
-     * Get a single or a list of RoomInventory
+     * Get a single or a list of Room
      * @param $property_id
      * @param null $id
      * @return \Illuminate\Http\JsonResponse
@@ -89,16 +91,16 @@ class RoomInventoryController extends Controller
     public function get($property_id, $id = null) {
 
         if(is_null($id)) {
-            $roomInventories = RoomInventory::where("property_id", $property_id)->get();
+            $rooms = Room::where("property_id", $property_id)->get();
         } else {
-            $roomInventories = RoomInventory::with("rooms")->where("id", $id)->where("property_id", $property_id)->get();
+            $rooms = Room::where("id", $id)->where("property_id", $property_id)->get();
         }
-        return response()->json(['room_inventory' => $roomInventories->toArray(), 'message' => 'GET'], 201);
+        return response()->json(['rooms' => $rooms->toArray(), 'message' => 'GET'], 201);
 
     }
 
     /**
-     * Delete a single room inventory
+     * Delete a single room
      * @param $property_id
      * @param $id
      * @return \Illuminate\Http\JsonResponse
@@ -106,13 +108,13 @@ class RoomInventoryController extends Controller
     public function destroy($property_id, $id) {
 
         try {
-            $roomInventory = RoomInventory::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-            if ($roomInventory->delete())
+            $room = Room::where("id", $id)->where("property_id", $property_id)->firstOrFail();
+            if ($room->delete())
                 return response()->json(['message' => 'DELETED'], 201);
         } catch( ModelNotFoundException $e) {
             // empty on purpose
         }
-        return response()->json(['message' => 'Room Inventory delete Failed!'], 409);
+        return response()->json(['message' => 'Room delete Failed!'], 409);
 
     }
 
