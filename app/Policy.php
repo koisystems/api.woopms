@@ -40,7 +40,7 @@ class Policy extends Model
      */
     public function rules()
     {
-        return $this->hasMany('App\PolicyRules');
+        return $this->hasMany('App\PolicyRule');
     }
 }
 

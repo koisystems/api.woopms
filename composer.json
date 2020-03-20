@@ -8,6 +8,7 @@
         "php": "^7.2.5",
         "bref/bref": "^0.5.17",
         "laravel/lumen-framework": "^7.0",
+        "league/fractal": "^0.19.2",
         "tymon/jwt-auth": "^1.0"
     },
     "require-dev": {

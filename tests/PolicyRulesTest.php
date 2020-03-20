@@ -5,6 +5,7 @@ use Laravel\Lumen\Testing\DatabaseTransactions;
 
 class PolicyRulesTestTest extends TestCase
 {
+    private $added_record_id    =  5;
 
     public function testUserCanCreatePolicyRule()
     {
@@ -16,6 +17,7 @@ class PolicyRulesTestTest extends TestCase
             'amount'            => '1',
         ], $this->getHeaders());
 
+
         $this->assertResponseStatus(201);
 
     }
@@ -23,7 +25,7 @@ class PolicyRulesTestTest extends TestCase
     public function testUserCanShowPolicyRule()
     {
 
-        $this->get(env("API_ENDPOINT").'/1/policy/1/policyrule/1', [], $this->getHeaders());
+        $this->get(env("API_ENDPOINT").'/1/policy/1/policyrule/'.$this->added_record_id, [], $this->getHeaders());
 
         $this->assertResponseStatus(201);
         $this->seeJson([
@@ -37,15 +39,13 @@ class PolicyRulesTestTest extends TestCase
     public function testUserCanUpdatePolicyRule()
     {
 
-        $this->put(env("API_ENDPOINT").'/1/policy/1/policyrule/1', [
+        $this->put(env("API_ENDPOINT").'/1/policy/1/policyrule/'.$this->added_record_id, [
             'type'              =>  'modification',
             'hours_before'      => 12,
             'charge_based_on'   => 'fixed_amount',
             'amount'            => 100,
         ], $this->getHeaders());
 
-
-        $this->assertResponseStatus(201);
 
         $this->seeJsonStructure(
             [
@@ -70,7 +70,9 @@ class PolicyRulesTestTest extends TestCase
     public function testUserCanDeletePolicyRule()
     {
 
-        $this->delete(env("API_ENDPOINT").'/1/policy/1/policyrule/1', [], $this->getHeaders());
+
+        $this->delete(env("API_ENDPOINT").'/1/policy/1/policyrule/'.$this->added_record_id, [], $this->getHeaders());
+
 
         $this->assertResponseStatus(201);
 
@@ -79,7 +81,7 @@ class PolicyRulesTestTest extends TestCase
     public function testUserCantDeleteUnexistingPolicyRule()
     {
 
-        $this->delete(env("API_ENDPOINT").'/1/policy/1/policyrule/1', [], $this->getHeaders());
+        $this->delete(env("API_ENDPOINT").'/1/policy/1/policyrule/'.$this->added_record_id, [], $this->getHeaders());
 
         $this->assertResponseStatus(409);
 

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 
 use App\Interfaces\PolicyInterface;
 use App\Policy;
+use App\PolicyRule;
 
 use League\Fractal;
 use League\Fractal\Manager;
@@ -24,9 +25,27 @@ class PolicyRepository implements  PolicyInterface {
 
         $policy =    Policy::create($requestData);
 
+        $this->create_policy_rules( $property_id, $policy, $requestData );
+
         $fractal = new Manager();
         $resource =  new Fractal\Resource\Item($policy, new PolicyTransformer());
         return $fractal->createData($resource)->toArray()['data'];
+    }
+
+    private function create_policy_rules($property_id, $policy, $requestData) {
+
+        if( isset($requestData['rules'])) {
+            $rules = $requestData['rules'];
+            unset($requestData['rules']);
+            foreach ($rules as $rule_type => $ruleCollection) {
+
+                foreach ($ruleCollection as $idx => $rule) {
+                    $rule['property_id'] = $property_id;
+                    $rule['policy_id'] = $policy->id;
+                    PolicyRule::create($rule);
+                }
+            }
+        }
     }
 
     public function update_policy($property_id, $policy_id, Request $request) {
