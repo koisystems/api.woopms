@@ -39,3 +39,10 @@
     $router->put('/{property_id}/policy/{id}', ['uses' => 'PolicyController@update']);
     $router->get('/{property_id}/policy/{id}', ['uses' => 'PolicyController@get']);
     $router->delete('/{property_id}/policy/{id}', ['uses' => 'PolicyController@destroy']);
+
+    /* Policy Rules */
+    $router->post('/{property_id}/policy/{policy_id}/policyrule', ['uses' => 'PolicyRuleController@create']);
+    $router->get('/{property_id}/policy/{policy_id}/policyrule', ['uses' => 'PolicyRuleController@get']);
+    $router->put('/{property_id}/policy/{policy_id}/policyrule/{id}', ['uses' => 'PolicyRuleController@update']);
+    $router->get('/{property_id}/policy/{policy_id}/policyrule/{id}', ['uses' => 'PolicyRuleController@get']);
+    $router->delete('/{property_id}/policy/{policy_id}/policyrule/{id}', ['uses' => 'PolicyRuleController@destroy']);

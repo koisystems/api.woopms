@@ -14,7 +14,7 @@ class PolicyRule extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id', 'policy_id', 'hours_before', 'charge_based_on', 'amount'
+        'property_id', 'policy_id', 'type', 'hours_before', 'charge_based_on', 'amount'
     ];
 
     /**
