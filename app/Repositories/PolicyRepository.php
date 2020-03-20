@@ -24,6 +24,7 @@ class PolicyRepository implements  PolicyInterface {
         $requestData = array_merge($requestData, $request->all());
 
         $policy =    Policy::create($requestData);
+
         $this->create_policy_rules( $property_id, $policy, $requestData );
 
         $fractal = new Manager();
