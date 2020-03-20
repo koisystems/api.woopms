@@ -14,7 +14,7 @@ class Policy extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id', 'code', 'text', 'has_guarantee', 'has_deposit', 'has_cancellation_penalty', 'has_modification_penalty'
+        'property_id', 'code', 'text', 'has_guarantee', 'has_deposit', 'has_cancellation_penalty', 'has_modification_penalty', 'is_active', 'is_property_default'
     ];
 
     /**

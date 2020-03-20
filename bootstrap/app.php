@@ -100,6 +100,8 @@ $app->register(App\Providers\AuthServiceProvider::class);
 $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
+$app->bind(App\Interfaces\PolicyInterface::class, App\Repositories\PolicyRepository::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

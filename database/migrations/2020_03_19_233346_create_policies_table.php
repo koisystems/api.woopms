@@ -22,6 +22,9 @@ class CreatePoliciesTable extends Migration
             $table->boolean("has_deposit")->default(false);
             $table->boolean("has_cancellation_penalty")->default(false);
             $table->boolean("has_modification_penalty")->default(false);
+            $table->boolean("is_active")->default(true);
+            $table->boolean("is_property_default")->default(false);
+
             $table->timestamps();
         });
     }

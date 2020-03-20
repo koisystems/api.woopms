@@ -7,16 +7,19 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Interfaces\PolicyInterface;
 
 use  App\Policy;
 
 
 class PolicyController extends Controller
 {
+    private $policyRepository;
 
-    public function __construct()
+    public function __construct(PolicyInterface $policyRepository)
     {
         $this->middleware('auth');
+        $this->policyRepository = $policyRepository;
     }
 
     /**
@@ -41,14 +44,8 @@ class PolicyController extends Controller
 
         }
 
-        /** Is there a better way to do this ? */
-        $requestData    =   [
-            'property_id'   =>  $property_id,
-        ];
-        $requestData = array_merge($requestData, $request->all());
+        $policy = $this->policyRepository->create_policy($property_id, $request);
 
-
-        $policy = Policy::create($requestData);
         return response()->json(['policy' => $policy, 'message' => 'CREATED'], 201);
 
 
@@ -77,8 +74,7 @@ class PolicyController extends Controller
 
         }
 
-        $policy = Policy::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-        $policy->update($request->all());
+        $policy = $this->policyRepository->update_policy($property_id, $id, $request);
 
         return response()->json(['policy' => $policy, 'message' => 'UPDATED'], 201);
 
@@ -92,11 +88,8 @@ class PolicyController extends Controller
      */
     public function get($property_id, $id = null) {
 
-        if(is_null($id)) {
-            $policies = Policy::where("property_id", $property_id)->get();
-        } else {
-            $policies = Policy::where("id", $id)->where("property_id", $property_id)->get();
-        }
+        $policies = $this->policyRepository->get_policy($property_id, $id);
+
         return response()->json(['policies' => $policies->toArray(), 'message' => 'GET'], 201);
 
     }
@@ -110,12 +103,13 @@ class PolicyController extends Controller
     public function destroy($property_id, $id) {
 
         try {
-            $policy = Policy::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-            if ($policy->delete())
+
+            if( $this->policyRepository->delete_policy($property_id, $id) )
                 return response()->json(['message' => 'DELETED'], 201);
         } catch( ModelNotFoundException $e) {
             // empty on purpose
         }
+
         return response()->json(['message' => 'Policy delete Failed!'], 409);
 
     }
