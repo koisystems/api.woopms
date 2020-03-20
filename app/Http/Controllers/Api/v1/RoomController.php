@@ -11,13 +11,17 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use  App\User;
 use  App\RoomInventory;
 use  App\Room;
+use  App\Interfaces\RoomInterface;
 
 class RoomController extends Controller
 {
 
-    public function __construct()
+    private $roomRepository;
+
+    public function __construct( RoomInterface $roomRepository)
     {
         $this->middleware('auth');
+        $this->roomRepository   =   $roomRepository;
     }
 
     /**
@@ -40,14 +44,8 @@ class RoomController extends Controller
 
         }
 
-        /** Is there a better way to do this ? */
-        $requestData    =   [
-            'property_id'   =>  $property_id,
-        ];
-        $requestData = array_merge($requestData, $request->all());
+        $room   =   $this->roomRepository->create_room($property_id, $request);
 
-
-        $room = Room::create($requestData);
         return response()->json(['room' => $room, 'message' => 'CREATED'], 201);
 
 
@@ -73,9 +71,7 @@ class RoomController extends Controller
 
         }
 
-
-        $room = Room::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-        $room->update($request->all());
+        $room   =   $this->roomRepository->update_room($property_id, $id, $request);
 
         return response()->json(['room' => $room, 'message' => 'UPDATED'], 201);
 
@@ -90,12 +86,9 @@ class RoomController extends Controller
      */
     public function get($property_id, $id = null) {
 
-        if(is_null($id)) {
-            $rooms = Room::where("property_id", $property_id)->get();
-        } else {
-            $rooms = Room::where("id", $id)->where("property_id", $property_id)->get();
-        }
-        return response()->json(['rooms' => $rooms->toArray(), 'message' => 'GET'], 201);
+        $rooms =  $this->roomRepository->get_rooms($property_id, $id);
+
+        return response()->json(['rooms' => $rooms, 'message' => 'GET'], 201);
 
     }
 
@@ -108,8 +101,7 @@ class RoomController extends Controller
     public function destroy($property_id, $id) {
 
         try {
-            $room = Room::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-            if ($room->delete())
+            if ( $this->roomRepository->delete_room($property_id, $id))
                 return response()->json(['message' => 'DELETED'], 201);
         } catch( ModelNotFoundException $e) {
             // empty on purpose

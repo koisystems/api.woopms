@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
+use App\Interfaces\RatePlanInterface;
 
 use  App\User;
 use  App\RatePlan;
@@ -14,10 +15,12 @@ use  App\RatePlan;
 
 class RatePlanController extends Controller
 {
+    private $ratePlanRepository;
 
-    public function __construct()
+    public function __construct(RatePlanInterface $ratePlanRepository)
     {
         $this->middleware('auth');
+        $this->ratePlanRepository  =   $ratePlanRepository;
     }
 
     /**
@@ -39,14 +42,8 @@ class RatePlanController extends Controller
 
         }
 
-        /** Is there a better way to do this ? */
-        $requestData    =   [
-            'property_id'   =>  $property_id,
-        ];
-        $requestData = array_merge($requestData, $request->all());
+        $rate_plan  =   $this->ratePlanRepository->create_rate_plan($property_id, $request);
 
-
-        $rate_plan = RatePlan::create($requestData);
         return response()->json(['rate_plan' => $rate_plan, 'message' => 'CREATED'], 201);
 
 
@@ -72,8 +69,7 @@ class RatePlanController extends Controller
 
         }
 
-        $rate_plan = RatePlan::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-        $rate_plan->update($request->all());
+        $rate_plan  =   $this->ratePlanRepository->update_rate_plan($property_id, $id, $request);
 
         return response()->json(['rate_plan' => $rate_plan, 'message' => 'UPDATED'], 201);
 
@@ -87,12 +83,9 @@ class RatePlanController extends Controller
      */
     public function get($property_id, $id = null) {
 
-        if(is_null($id)) {
-            $rate_plans = RatePlan::where("property_id", $property_id)->get();
-        } else {
-            $rate_plans = RatePlan::where("id", $id)->where("property_id", $property_id)->get();
-        }
-        return response()->json(['rate_plans' => $rate_plans->toArray(), 'message' => 'GET'], 201);
+        $rate_plans = $this->ratePlanRepository->get_rate_plan($property_id, $id);
+
+        return response()->json(['rate_plans' => $rate_plans, 'message' => 'GET'], 201);
 
     }
 
@@ -105,8 +98,7 @@ class RatePlanController extends Controller
     public function destroy($property_id, $id) {
 
         try {
-            $rate_plan = RatePlan::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-            if ($rate_plan->delete())
+            if ( $this->ratePlanRepository->delete_rate_plan($property_id, $id) )
                 return response()->json(['message' => 'DELETED'], 201);
         } catch( ModelNotFoundException $e) {
             // empty on purpose

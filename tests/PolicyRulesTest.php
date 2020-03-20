@@ -39,9 +39,9 @@ class PolicyRulesTestTest extends TestCase
 
         $this->put(env("API_ENDPOINT").'/1/policy/1/policyrule/1', [
             'type'              =>  'modification',
-            'hours_before'      => '12',
+            'hours_before'      => 12,
             'charge_based_on'   => 'fixed_amount',
-            'amount'            => '100',
+            'amount'            => 100,
         ], $this->getHeaders());
 
 
@@ -61,9 +61,9 @@ class PolicyRulesTestTest extends TestCase
 
         $this->seeJson([
             'type'              =>  'modification',
-            'hours_before'      => "12",
+            'hours_before'      => 12,
             'charge_based_on'   => 'fixed_amount',
-            'amount'            => "100",
+            'amount'            => 100,
         ]);
     }
 

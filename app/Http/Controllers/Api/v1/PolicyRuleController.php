@@ -10,14 +10,15 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use  App\Policy;
 use  App\PolicyRule;
-
+use App\Interfaces\PolicyRuleInterface;
 
 class PolicyRuleController extends Controller
 {
-
-    public function __construct()
+    private $policyRuleRepository;
+    public function __construct(PolicyRuleInterface $policyRuleRepository)
     {
         $this->middleware('auth');
+        $this->policyRuleRepository =   $policyRuleRepository;
     }
 
     /**
@@ -42,15 +43,8 @@ class PolicyRuleController extends Controller
 
         }
 
-        /** Is there a better way to do this ? */
-        $requestData    =   [
-            'property_id'   =>  $property_id,
-            'policy_id'     =>  $policy_id
-        ];
-        $requestData = array_merge($requestData, $request->all());
+        $policy_rule    =   $this->policyRuleRepository->create_policy_rule($property_id, $policy_id, $request);
 
-
-        $policy_rule = PolicyRule::create($requestData);
         return response()->json(['policy_rule' => $policy_rule, 'message' => 'CREATED'], 201);
 
 
@@ -79,8 +73,7 @@ class PolicyRuleController extends Controller
 
         }
 
-        $policy_rule = PolicyRule::where("id", $id)->where("property_id", $property_id)->where("policy_id", $policy_id)->where("id", $id)->firstOrFail();
-        $policy_rule->update($request->all());
+        $policy_rule    =   $this->policyRuleRepository->update_policy_rule($property_id, $policy_id, $id, $request);
 
         return response()->json(['policy_rule' => $policy_rule, 'message' => 'UPDATED'], 201);
 
@@ -95,12 +88,9 @@ class PolicyRuleController extends Controller
      */
     public function get($property_id, $policy_id, $id = null) {
 
-        if(is_null($id)) {
-            $policy_rules = PolicyRule::where("property_id", $property_id)->where("policy_id", $policy_id)->get();
-        } else {
-            $policy_rules = PolicyRule::where("id", $id)->where("property_id", $property_id)->where("policy_id", $policy_id)->get();
-        }
-        return response()->json(['policy_rules' => $policy_rules->toArray(), 'message' => 'GET'], 201);
+        $policy_rules   =   $this->policyRuleRepository->get_policy_rule($property_id, $policy_id, $id);
+
+        return response()->json(['policy_rules' => $policy_rules, 'message' => 'GET'], 201);
 
     }
 
@@ -114,8 +104,7 @@ class PolicyRuleController extends Controller
     public function destroy($property_id, $policy_id, $id) {
 
         try {
-            $policy_rule = PolicyRule::where("id", $id)->where("property_id", $property_id)->where("policy_id", $policy_id)->firstOrFail();
-            if ($policy_rule->delete())
+            $this->policyRuleRepository->delete_policy_rule($property_id, $policy_id, $id);
                 return response()->json(['message' => 'DELETED'], 201);
         } catch( ModelNotFoundException $e) {
             // empty on purpose

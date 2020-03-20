@@ -101,6 +101,11 @@ $app->register(App\Providers\EventServiceProvider::class);
 $app->register(Tymon\JWTAuth\Providers\LumenServiceProvider::class);
 
 $app->bind(App\Interfaces\PolicyInterface::class, App\Repositories\PolicyRepository::class);
+$app->bind(App\Interfaces\PolicyRuleInterface::class, App\Repositories\PolicyRuleRepository::class);
+$app->bind(App\Interfaces\RatePlanInterface::class, App\Repositories\RatePlanRepository::class);
+$app->bind(App\Interfaces\PolicyInterface::class, App\Repositories\PolicyRepository::class);
+$app->bind(App\Interfaces\RoomInterface::class, App\Repositories\RoomRepository::class);
+$app->bind(App\Interfaces\RoomInventoryInterface::class, App\Repositories\RoomInventoryRepository::class);
 
 /*
 |--------------------------------------------------------------------------

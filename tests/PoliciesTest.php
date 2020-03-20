@@ -65,10 +65,10 @@ class PoliciesTest extends TestCase
 
         $this->seeJson([
             'code'  =>  'DFL_CXL_0',
-            'has_guarantee' => '0',
-            'has_deposit' => '0',
-            'has_cancellation_penalty' => '0',
-            'has_modification_penalty' => '0',
+            'has_guarantee' => 0,
+            'has_deposit' => 0,
+            'has_cancellation_penalty' => 0,
+            'has_modification_penalty' => 0,
         ]);
     }
 

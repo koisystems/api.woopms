@@ -90,7 +90,7 @@ class PolicyController extends Controller
 
         $policies = $this->policyRepository->get_policy($property_id, $id);
 
-        return response()->json(['policies' => $policies->toArray(), 'message' => 'GET'], 201);
+        return response()->json(['policies' => $policies, 'message' => 'GET'], 201);
 
     }
 

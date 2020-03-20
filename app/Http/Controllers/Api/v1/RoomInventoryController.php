@@ -5,18 +5,23 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 
+use App\Interfaces\RoomInventoryInterface;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use  App\User;
 use  App\RoomInventory;
+use  App\Repositories\RoomInventoryRepository;
 
 class RoomInventoryController extends Controller
 {
 
-    public function __construct()
+    private $roomInventoryRepository;
+
+    public function __construct(RoomInventoryInterface $roomInventoryRepository)
     {
         $this->middleware('auth');
+        $this->roomInventoryRepository  =   $roomInventoryRepository;
     }
 
     /**
@@ -38,14 +43,8 @@ class RoomInventoryController extends Controller
 
         }
 
-        /** Is there a better way to do this ? */
-        $requestData    =   [
-            'property_id'   =>  $property_id,
-        ];
-        $requestData = array_merge($requestData, $request->all());
+        $roomInventory  =   $this->roomInventoryRepository->create_room_inventory($property_id, $request);
 
-
-        $roomInventory = RoomInventory::create($requestData);
         return response()->json(['room_inventory' => $roomInventory, 'message' => 'CREATED'], 201);
 
 
@@ -71,9 +70,7 @@ class RoomInventoryController extends Controller
 
         }
 
-
-        $roomInventory = RoomInventory::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-        $roomInventory->update($request->all());
+        $roomInventory  =   $this->roomInventoryRepository->update_room_inventory($property_id, $id, $request);
 
         return response()->json(['room_inventory' => $roomInventory, 'message' => 'UPDATED'], 201);
 
@@ -88,12 +85,9 @@ class RoomInventoryController extends Controller
      */
     public function get($property_id, $id = null) {
 
-        if(is_null($id)) {
-            $roomInventories = RoomInventory::where("property_id", $property_id)->get();
-        } else {
-            $roomInventories = RoomInventory::with("rooms")->where("id", $id)->where("property_id", $property_id)->get();
-        }
-        return response()->json(['room_inventory' => $roomInventories->toArray(), 'message' => 'GET'], 201);
+        $roomInventories    =   $this->roomInventoryRepository->get_room__inventories($property_id, $id);
+
+        return response()->json(['room_inventory' => $roomInventories, 'message' => 'GET'], 201);
 
     }
 
@@ -106,8 +100,8 @@ class RoomInventoryController extends Controller
     public function destroy($property_id, $id) {
 
         try {
-            $roomInventory = RoomInventory::where("id", $id)->where("property_id", $property_id)->firstOrFail();
-            if ($roomInventory->delete())
+
+            if ( $this->roomInventoryRepository->delete_room_inventory($property_id, $id) )
                 return response()->json(['message' => 'DELETED'], 201);
         } catch( ModelNotFoundException $e) {
             // empty on purpose
