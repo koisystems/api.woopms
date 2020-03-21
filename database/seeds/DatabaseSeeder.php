@@ -16,6 +16,7 @@ class DatabaseSeeder extends Seeder
              RoomInventorySeeder::class,
              BookingChannelsSeeder::class,
              FeeTaxTypesSeeder::class,
+             ProfileTypesSeeder::class,
          ]);
     }
 }

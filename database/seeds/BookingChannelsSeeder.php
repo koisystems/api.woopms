@@ -23,7 +23,7 @@ class BookingChannelsSeeder extends Seeder
         ];
 
         $channels   =   [
-            ['name'   =>    'Booking.com', 'code' => 'BCD', 'is_active' => 1, 'booking_channel_type_id' => 7],
+            ['name'   =>    'Booking.com', 'code' => 'BDC', 'is_active' => 1, 'booking_channel_type_id' => 7],
             ['name'   =>    'Expedia',   'code' => 'EXP' , 'is_active' => 1, 'booking_channel_type_id' => 7],
             ['name'   =>    'Walk-in',   'code'  => 'WALK', 'is_active' => 1, 'booking_channel_type_id' => 2],
         ];

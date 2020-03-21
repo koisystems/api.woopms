@@ -4,17 +4,17 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class FeeTaxType extends Model
+class ProfileType extends Model
 {
 
-    protected $table = 'fee_tax_types';
+    protected $table = 'profile_types';
 
     /**
      * The attributes that are mass assignable.
      * @var array
      */
     protected $fillable = [
-         'name', 'is_active', 'ota_code'
+        'id', 'name', 'ota_code'
     ];
 
     /**
