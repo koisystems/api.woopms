@@ -14,6 +14,8 @@ class DatabaseSeeder extends Seeder
          $this->call([
              PropertySeeder::class,
              RoomInventorySeeder::class,
+             BookingChannelsSeeder::class,
+             FeeTaxTypesSeeder::class,
          ]);
     }
 }
