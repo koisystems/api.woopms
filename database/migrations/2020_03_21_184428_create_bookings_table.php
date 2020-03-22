@@ -16,7 +16,7 @@ class CreateBookingsTable extends Migration
         Schema::create('bookings', function (Blueprint $table) {
             $table->id();
             $table->integer("property_id");
-            $table->enum("status", ["Book", "Modify", "Cancel"])->default("Book");
+            $table->enum("status", ["pending", "confirmed", "canceled"])->default("pending");
             $table->integer("booking_channel_id");
 
             $table->timestamps();

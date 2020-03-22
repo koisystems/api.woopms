@@ -15,7 +15,7 @@ class Room extends Model
      * @var array
      */
     protected $fillable = [
-        'property_id', 'room_inventory_id', 'code', 'title', 'description'
+        'property_id', 'room_type_id', 'code', 'title', 'description'
     ];
 
     /**
@@ -30,9 +30,9 @@ class Room extends Model
     /**
      * Get the inventory for the room.
      */
-    public function inventory()
+    public function roomtype()
     {
-        return $this->belongsTo('App\RoomInventory');
+        return $this->belongsTo('App\RoomType');
     }
 
 }

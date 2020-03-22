@@ -11,7 +11,7 @@ class RoomTransformer extends Fractal\TransformerAbstract
         return [
             'id'                => (int) $room->id,
             'property_id'       => (int) $room->propery_id,
-            'room_inventory_id' => (int) $room->room_inventory_id,
+            'room_type_id'      => (int) $room->room_type_id,
             'code'              => (string) $room->code,
             'title'             => (string) $room->title,
             'description'       => (string) $room->description,

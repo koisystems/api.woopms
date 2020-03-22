@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use  App\User;
-use  App\RoomInventory;
+use  App\RoomType;
 use  App\Room;
 use  App\Interfaces\RoomInterface;
 
@@ -35,7 +35,7 @@ class RoomController extends Controller
 
         try {
             $this->validate($request, [
-                'room_inventory_id' => 'required',
+                'room_type_id' => 'required',
                 'code' => 'required',
                 'title' => 'required',
             ]);

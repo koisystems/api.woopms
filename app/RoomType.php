@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class RoomInventory extends Model
+class RoomType extends Model
 {
 
-    protected $table = 'room_inventories';
+    protected $table = 'room_types';
 
     /**
      * The attributes that are mass assignable.

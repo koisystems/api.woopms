@@ -10,7 +10,7 @@ class RoomsTest extends TestCase
     {
 
         $this->post(env("API_ENDPOINT").'/1/room', [
-            'room_inventory_id' => 1,
+            'room_type_id' => 1,
             'code'  =>  'ROOM1',
             'title' =>  'Room 1'
         ], $this->getHeaders());
@@ -46,7 +46,7 @@ class RoomsTest extends TestCase
                 'room' => [
                     'id',
                     'property_id',
-                    'room_inventory_id',
+                    'room_type_id',
                     'code',
                     'title',
                     'description',

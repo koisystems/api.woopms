@@ -10,13 +10,13 @@
 
     $router->get('/user/me', ['uses' => 'UserController@profile']);
 
-    /* Room Inventory */
+    /* Room Types */
 
-    $router->post('/{property_id}/roominventory', ['uses' => 'RoomInventoryController@create']);
-    $router->get('/{property_id}/roominventory', ['uses' => 'RoomInventoryController@get']);
-    $router->put('/{property_id}/roominventory/{id}', ['uses' => 'RoomInventoryController@update']);
-    $router->get('/{property_id}/roominventory/{id}', ['uses' => 'RoomInventoryController@get']);
-    $router->delete('/{property_id}/roominventory/{id}', ['uses' => 'RoomInventoryController@destroy']);
+    $router->post('/{property_id}/roomtype', ['uses' => 'RoomTypeController@create']);
+    $router->get('/{property_id}/roomtype', ['uses' => 'RoomTypeController@get']);
+    $router->put('/{property_id}/roomtype/{id}', ['uses' => 'RoomTypeController@update']);
+    $router->get('/{property_id}/roomtype/{id}', ['uses' => 'RoomTypeController@get']);
+    $router->delete('/{property_id}/roomtype/{id}', ['uses' => 'RoomTypeController@destroy']);
 
     /* Room */
 
