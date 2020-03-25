@@ -42,7 +42,7 @@ class RoomTypesTest extends TestCase
 
         $this->seeJsonStructure(
             [
-                'room_type' => [
+                'data' => [
                     'id',
                     'property_id',
                     'code',

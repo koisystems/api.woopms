@@ -40,7 +40,7 @@ class AuthController extends Controller
            event(new UserRegisteredEvent($user));
 
             //return successful response
-            return response()->json(['user' => $user, 'message' => 'CREATED'], 201);
+            return response()->json(['data' => $user, 'message' => 'CREATED'], 201);
 
         } catch (\Exception $e) {
             //return error message

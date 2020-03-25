@@ -19,7 +19,7 @@ class AUsersTest extends TestCase
         $this->assertResponseStatus(201);
         $this->seeJsonStructure(
             [
-                'user' => [
+                'data' => [
                     'name',
                     'email',
                     'id'

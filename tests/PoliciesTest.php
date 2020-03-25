@@ -51,7 +51,7 @@ class PoliciesTest extends TestCase
 
         $this->seeJsonStructure(
             [
-                'policy' => [
+                'data' => [
                     'id',
                     'code',
                     'has_guarantee',
@@ -148,7 +148,7 @@ class PoliciesTest extends TestCase
 
         $this->seeJsonStructure(
             [
-                'policy' => [
+                'data' => [
                     'id',
                     'code',
                     'has_guarantee',

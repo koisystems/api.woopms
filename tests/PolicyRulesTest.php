@@ -49,7 +49,7 @@ class PolicyRulesTestTest extends TestCase
 
         $this->seeJsonStructure(
             [
-                'policy_rule' => [
+                'data' => [
                     'type',
                     'hours_before',
                     'charge_based_on',

@@ -45,7 +45,7 @@ class RoomTypeController extends Controller
 
         $roomType  =   $this->roomTypeRepository->create_room_type($property_id, $request);
 
-        return response()->json(['room_type' => $roomType, 'message' => 'CREATED'], 201);
+        return response()->json(['data' => $roomType, 'message' => 'CREATED'], 201);
 
 
     }
@@ -72,7 +72,7 @@ class RoomTypeController extends Controller
 
         $roomType  =   $this->roomTypeRepository->update_room_type($property_id, $id, $request);
 
-        return response()->json(['room_type' => $roomType, 'message' => 'UPDATED'], 201);
+        return response()->json(['data' => $roomType, 'message' => 'UPDATED'], 201);
 
 
     }
@@ -87,7 +87,7 @@ class RoomTypeController extends Controller
 
         $roomTypes    =   $this->roomTypeRepository->get_room_types($property_id, $id);
 
-        return response()->json(['room_type' => $roomTypes, 'message' => 'GET'], 201);
+        return response()->json(['data' => $roomTypes, 'message' => 'GET'], 201);
 
     }
 

@@ -42,7 +42,7 @@ class RatePlanTest extends TestCase
 
         $this->seeJsonStructure(
             [
-                'rate_plan' => [
+                'data' => [
                     'id',
                     'property_id',
                     'code',

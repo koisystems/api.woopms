@@ -46,7 +46,7 @@ class PolicyController extends Controller
 
         $policy = $this->policyRepository->create_policy($property_id, $request);
 
-        return response()->json(['policy' => $policy, 'message' => 'CREATED'], 201);
+        return response()->json(['data' => $policy, 'message' => 'CREATED'], 201);
 
 
     }
@@ -76,7 +76,7 @@ class PolicyController extends Controller
 
         $policy = $this->policyRepository->update_policy($property_id, $id, $request);
 
-        return response()->json(['policy' => $policy, 'message' => 'UPDATED'], 201);
+        return response()->json(['data' => $policy, 'message' => 'UPDATED'], 201);
 
     }
 
@@ -90,7 +90,7 @@ class PolicyController extends Controller
 
         $policies = $this->policyRepository->get_policy($property_id, $id);
 
-        return response()->json(['policies' => $policies, 'message' => 'GET'], 201);
+        return response()->json(['data' => $policies, 'message' => 'GET'], 201);
 
     }
 

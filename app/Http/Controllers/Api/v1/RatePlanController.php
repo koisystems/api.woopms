@@ -44,7 +44,7 @@ class RatePlanController extends Controller
 
         $rate_plan  =   $this->ratePlanRepository->create_rate_plan($property_id, $request);
 
-        return response()->json(['rate_plan' => $rate_plan, 'message' => 'CREATED'], 201);
+        return response()->json(['data' => $rate_plan, 'message' => 'CREATED'], 201);
 
 
     }
@@ -71,7 +71,7 @@ class RatePlanController extends Controller
 
         $rate_plan  =   $this->ratePlanRepository->update_rate_plan($property_id, $id, $request);
 
-        return response()->json(['rate_plan' => $rate_plan, 'message' => 'UPDATED'], 201);
+        return response()->json(['data' => $rate_plan, 'message' => 'UPDATED'], 201);
 
     }
 
@@ -85,7 +85,7 @@ class RatePlanController extends Controller
 
         $rate_plans = $this->ratePlanRepository->get_rate_plan($property_id, $id);
 
-        return response()->json(['rate_plans' => $rate_plans, 'message' => 'GET'], 201);
+        return response()->json(['data' => $rate_plans, 'message' => 'GET'], 201);
 
     }
 

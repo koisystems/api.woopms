@@ -46,7 +46,7 @@ class RoomController extends Controller
 
         $room   =   $this->roomRepository->create_room($property_id, $request);
 
-        return response()->json(['room' => $room, 'message' => 'CREATED'], 201);
+        return response()->json(['data' => $room, 'message' => 'CREATED'], 201);
 
 
     }
@@ -73,7 +73,7 @@ class RoomController extends Controller
 
         $room   =   $this->roomRepository->update_room($property_id, $id, $request);
 
-        return response()->json(['room' => $room, 'message' => 'UPDATED'], 201);
+        return response()->json(['data' => $room, 'message' => 'UPDATED'], 201);
 
 
     }
@@ -88,7 +88,7 @@ class RoomController extends Controller
 
         $rooms =  $this->roomRepository->get_rooms($property_id, $id);
 
-        return response()->json(['rooms' => $rooms, 'message' => 'GET'], 201);
+        return response()->json(['data' => $rooms, 'message' => 'GET'], 201);
 
     }
 
