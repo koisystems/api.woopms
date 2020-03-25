@@ -46,3 +46,10 @@
     $router->put('/{property_id}/policy/{policy_id}/policyrule/{id}', ['uses' => 'PolicyRuleController@update']);
     $router->get('/{property_id}/policy/{policy_id}/policyrule/{id}', ['uses' => 'PolicyRuleController@get']);
     $router->delete('/{property_id}/policy/{policy_id}/policyrule/{id}', ['uses' => 'PolicyRuleController@destroy']);
+
+    /* Room Rates */
+    $router->post('/{property_id}/roomrate', ['uses' => 'RoomRateController@create']);
+    $router->get('{property_id}/roomrate', ['uses' => 'RoomRateController@get']);
+    $router->put('/{property_id}/roomrate/{id}', ['uses' => 'RoomRateController@update']);
+    $router->get('/{property_id}/roomrate/{id}', ['uses' => 'RoomRateController@get']);
+    $router->delete('/{property_id}/roomrate/{id}', ['uses' => 'RoomRateController@destroy']);
