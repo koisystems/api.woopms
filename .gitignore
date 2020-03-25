@@ -6,3 +6,5 @@ Homestead.yaml
 .phpunit.result.cache
 openhotelierio
 deploy.sh
+.env.testing
+.serverless
