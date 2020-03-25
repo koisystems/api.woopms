@@ -111,6 +111,7 @@ $app->bind(App\Interfaces\RatePlanInterface::class, App\Repositories\RatePlanRep
 $app->bind(App\Interfaces\PolicyInterface::class, App\Repositories\PolicyRepository::class);
 $app->bind(App\Interfaces\RoomInterface::class, App\Repositories\RoomRepository::class);
 $app->bind(App\Interfaces\RoomTypeInterface::class, App\Repositories\RoomTypeRepository::class);
+$app->bind(App\Interfaces\RoomRateInterface::class, App\Repositories\RoomRateRepository::class);
 
 /*
 |--------------------------------------------------------------------------

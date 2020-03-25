@@ -10,7 +10,7 @@ class RatePlanTransformer extends Fractal\TransformerAbstract
     {
         return [
             'id'            => (int) $ratePlan->id,
-            'property_id'   => (int) $ratePlan->propery_id,
+            'property_id'   => (int) $ratePlan->property_id,
             'code'          => (string) $ratePlan->code,
             'title'         => (string) $ratePlan->title,
             'description'   => (string) $ratePlan->description,

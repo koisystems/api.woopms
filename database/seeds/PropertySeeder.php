@@ -10,7 +10,7 @@ class PropertySeeder extends Seeder
     {
         $faker = Faker::create();
 
-        foreach (range(1,2) as $index) {
+        foreach (range(1,1) as $index) {
             DB::table('properties')->insert([
                 'id'    =>  $index,
                 'name' => $faker->name,
