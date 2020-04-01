@@ -53,3 +53,5 @@
     $router->put('/{property_id}/roomrate/{id}', ['uses' => 'RoomRateController@update']);
     $router->get('/{property_id}/roomrate/{id}', ['uses' => 'RoomRateController@get']);
     $router->delete('/{property_id}/roomrate/{id}', ['uses' => 'RoomRateController@destroy']);
+
+    $router->post('/{property_id}/roomrate/bulk', ['uses' => 'RoomRateController@bulkUpdate']);

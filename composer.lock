@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1bdae075b9423a23c70af8dc663ae97",
+    "content-hash": "48b0bcd554584cb7318d99944739abce",
     "packages": [
         {
             "name": "async-aws/cloud-formation",

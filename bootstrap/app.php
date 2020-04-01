@@ -112,6 +112,7 @@ $app->bind(App\Interfaces\PolicyInterface::class, App\Repositories\PolicyReposit
 $app->bind(App\Interfaces\RoomInterface::class, App\Repositories\RoomRepository::class);
 $app->bind(App\Interfaces\RoomTypeInterface::class, App\Repositories\RoomTypeRepository::class);
 $app->bind(App\Interfaces\RoomRateInterface::class, App\Repositories\RoomRateRepository::class);
+$app->bind(App\Interfaces\RoomRateCalendarInterface::class, App\Repositories\RoomRateCalendarRepository::class);
 
 /*
 |--------------------------------------------------------------------------

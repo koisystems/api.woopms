@@ -71,7 +71,7 @@ class RoomTypesTest extends TestCase
     public function testUserCantDeleteUnexistingRoomType()
     {
 
-        $this->delete(env("API_ENDPOINT").'/1/roomtype/2', [], $this->getHeaders());
+        $this->delete(env("API_ENDPOINT").'/1/roomtype/12', [], $this->getHeaders());
 
         $this->assertResponseStatus(409);
 

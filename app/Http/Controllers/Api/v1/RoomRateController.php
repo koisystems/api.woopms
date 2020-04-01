@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 
+use App\Interfaces\RoomRateCalendarInterface;
 use App\Interfaces\RoomRateInterface;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
@@ -20,10 +21,12 @@ class RoomRateController extends Controller
 
     private $roomRateRepository;
 
-    public function __construct(RoomRateInterface $roomRateRepository)
+    public function __construct(RoomRateInterface $roomRateRepository, RoomRateCalendarInterface $roomRateCalendarRepository)
     {
         $this->middleware('auth');
         $this->roomRateRepository  =   $roomRateRepository;
+        $this->roomRateCalendarRepository  =   $roomRateCalendarRepository;
+
     }
 
     /**
@@ -111,6 +114,25 @@ class RoomRateController extends Controller
 
     }
 
+    public function bulkUpdate($property_id, Request $request) {
+
+        try {
+            $this->validate($request, [
+                'room_type_id' => 'required',
+                'rate_plan_id' => 'required',
+                'from_date' => 'required',
+                'until_date'   =>  'required',
+                'rate_amount' => 'required'
+            ]);
+        } catch( Illuminate\Validation\ValidationException $e) {
+            return response()->json(['message' => 'Room Rate Calendar Creation Failed!'], 409);
+
+        }
+
+        $roomRate  =   $this->roomRateCalendarRepository->create($property_id, $request);
+
+        return response()->json(['data' => $roomRate, 'message' => 'CREATED'], 201);
+    }
 
 
 }
