@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 
-use App\Interfaces\RoomTypeInterface;
+use App\Services\Interfaces\RoomTypeServiceInterface;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -17,11 +17,11 @@ use App\Validators\RoomTypeStoreValidator;
 class RoomTypeController extends Controller
 {
 
-    private $roomTypeRepository;
+    private $roomTypeService;
 
-    public function __construct(RoomTypeInterface $roomTypeRepository)
+    public function __construct(RoomTypeServiceInterface $roomTypeService)
     {
-        $this->roomTypeRepository  =   $roomTypeRepository;
+        $this->roomTypeService  =   $roomTypeService;
     }
 
     /**
@@ -40,7 +40,7 @@ class RoomTypeController extends Controller
 
         }
 
-        $roomType  =   $this->roomTypeRepository->create_room_type($property_id, $request);
+        $roomType  =   $this->roomTypeService->create_room_type($property_id, $request);
 
         return response()->json(['data' => $roomType, 'message' => 'CREATED'], 201);
 
@@ -64,7 +64,7 @@ class RoomTypeController extends Controller
 
         }
 
-        $roomType  =   $this->roomTypeRepository->update_room_type($property_id, $id, $request);
+        $roomType  =   $this->roomTypeService->update_room_type($property_id, $id, $request);
 
         return response()->json(['data' => $roomType, 'message' => 'UPDATED'], 201);
 
@@ -79,7 +79,7 @@ class RoomTypeController extends Controller
      */
     public function get($property_id, $id = null) {
 
-        $roomTypes    =   $this->roomTypeRepository->get_room_types($property_id, $id);
+        $roomTypes    =   $this->roomTypeService->get_room_types($property_id, $id);
 
         return response()->json(['data' => $roomTypes, 'message' => 'GET'], 201);
 
@@ -95,7 +95,7 @@ class RoomTypeController extends Controller
 
         try {
 
-            if ( $this->roomTypeRepository->delete_room_type($property_id, $id) )
+            if ( $this->roomTypeService->delete_room_type($property_id, $id) )
                 return response()->json(['message' => 'DELETED'], 201);
         } catch( ModelNotFoundException $e) {
             // empty on purpose

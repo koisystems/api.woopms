@@ -114,6 +114,8 @@ $app->bind(App\Interfaces\RoomTypeInterface::class, App\Repositories\RoomTypeRep
 $app->bind(App\Interfaces\RoomRateInterface::class, App\Repositories\RoomRateRepository::class);
 $app->bind(App\Interfaces\RoomRateCalendarInterface::class, App\Repositories\RoomRateCalendarRepository::class);
 
+$app->bind(App\Services\Interfaces\RoomTypeServiceInterface::class, App\Services\RoomTypeService::class);
+
 /*
 |--------------------------------------------------------------------------
 | Load The Application Routes

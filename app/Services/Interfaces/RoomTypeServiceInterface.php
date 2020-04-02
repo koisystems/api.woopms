@@ -1,38 +1,36 @@
 <?php
 
-namespace App\Interfaces;
-use App\Room;
+namespace App\Services\Interfaces;
 use Illuminate\Http\Request;
-use phpDocumentor\Reflection\Types\Integer;
 
-interface RoomTypeInterface {
+interface RoomTypeServiceInterface {
 
     /**
      * @param Integer $property_id
      * @param Request $request
      * @return mixed
      */
-    public function create( Array $params);
+    public function create_room_type(int $property_id, Request $request);
 
     /**
      * @param Integer $property_id
      * @param Integer $room_type_id
-     * @param Array $params
+     * @param Request $request
      * @return mixed
      */
-    public function update(Integer $property_id, Integer $room_type_id, Array $params);
-
-    /**
-     * @param Integer $property_id
-     * @param Integer $room_type_id
-     * @return mixed
-     */
-    public function delete(Integer $property_id, Integer $room_type_id);
+    public function update_room_type(int $property_id, int $room_type_id, Request $request);
 
     /**
      * @param Integer $property_id
      * @param Integer $room_type_id
      * @return mixed
      */
-    public function get(Integer $property_id,  $room_type_id);
+    public function delete_room_type(int $property_id, int $room_type_id);
+
+    /**
+     * @param Integer $property_id
+     * @param Integer $room_type_id
+     * @return mixed
+     */
+    public function get_room_types(int $property_id, int $room_type_id);
 }
