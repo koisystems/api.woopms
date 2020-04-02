@@ -166,7 +166,9 @@ class RoomRateTest extends TestCase
 
         $this->put(env("API_ENDPOINT").'/1/roomrate/'.$response['data'][0]['id'], [
             'included_number_persons'  =>  '3',
-            'rack_rate' =>  '99.25'
+            'rack_rate' =>  '99.25',
+            'room_type_id'  =>  $roomTypeSingle['id'],
+            'rate_plan_id' =>  $rateplanBAR['id'],
         ], $this->getHeaders());
 
         $this->assertResponseStatus(201);
