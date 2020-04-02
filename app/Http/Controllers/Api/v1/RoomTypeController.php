@@ -20,7 +20,6 @@ class RoomTypeController extends Controller
 
     public function __construct(RoomTypeInterface $roomTypeRepository)
     {
-        $this->middleware('auth');
         $this->roomTypeRepository  =   $roomTypeRepository;
     }
 

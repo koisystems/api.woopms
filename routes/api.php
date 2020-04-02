@@ -6,6 +6,8 @@
 
     $router->post('/auth/login', ['uses' => 'AuthController@login']);
 
+    $router->group(["middleware" => "auth"], function() use ($router){
+
     /* Users */
 
     $router->get('/user/me', ['uses' => 'UserController@profile']);
@@ -55,3 +57,5 @@
     $router->delete('/{property_id}/roomrate/{id}', ['uses' => 'RoomRateController@destroy']);
 
     $router->post('/{property_id}/roomrate/bulk', ['uses' => 'RoomRateController@bulkUpdate']);
+
+    });

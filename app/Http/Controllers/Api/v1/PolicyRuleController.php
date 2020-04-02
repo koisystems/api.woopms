@@ -17,7 +17,6 @@ class PolicyRuleController extends Controller
     private $policyRuleRepository;
     public function __construct(PolicyRuleInterface $policyRuleRepository)
     {
-        $this->middleware('auth');
         $this->policyRuleRepository =   $policyRuleRepository;
     }
 

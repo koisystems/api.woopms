@@ -18,7 +18,6 @@ class PolicyController extends Controller
 
     public function __construct(PolicyInterface $policyRepository)
     {
-        $this->middleware('auth');
         $this->policyRepository = $policyRepository;
     }
 

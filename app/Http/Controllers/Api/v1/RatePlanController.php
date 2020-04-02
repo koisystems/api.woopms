@@ -19,7 +19,6 @@ class RatePlanController extends Controller
 
     public function __construct(RatePlanInterface $ratePlanRepository)
     {
-        $this->middleware('auth');
         $this->ratePlanRepository  =   $ratePlanRepository;
     }
 

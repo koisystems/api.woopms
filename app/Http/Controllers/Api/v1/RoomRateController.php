@@ -23,7 +23,6 @@ class RoomRateController extends Controller
 
     public function __construct(RoomRateInterface $roomRateRepository, RoomRateCalendarInterface $roomRateCalendarRepository)
     {
-        $this->middleware('auth');
         $this->roomRateRepository  =   $roomRateRepository;
         $this->roomRateCalendarRepository  =   $roomRateCalendarRepository;
 
