@@ -12,6 +12,7 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 use  App\User;
 use  App\RoomType;
 use  App\Repositories\RoomTypeRepository;
+use App\Validators\RoomTypeStoreValidator;
 
 class RoomTypeController extends Controller
 {
@@ -33,10 +34,7 @@ class RoomTypeController extends Controller
     public function create($property_id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'code' => 'required',
-                'title' => 'required',
-            ]);
+            $this->validate($request, RoomTypeStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Room Type Creation Failed!'], 409);
 
@@ -60,10 +58,7 @@ class RoomTypeController extends Controller
     public function update($property_id, $id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'code' => 'required',
-                'title' => 'required',
-            ]);
+            $this->validate($request, RoomTypeStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Room Type Update Failed!'], 409);
 

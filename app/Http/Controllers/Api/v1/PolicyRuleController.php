@@ -5,12 +5,14 @@ namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
 
+use App\Validators\PolicyStoreValidator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 use  App\Policy;
 use  App\PolicyRule;
 use App\Interfaces\PolicyRuleInterface;
+use App\Validators\PolicyRuleStoreValidator;
 
 class PolicyRuleController extends Controller
 {
@@ -31,12 +33,7 @@ class PolicyRuleController extends Controller
     public function create($property_id, $policy_id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'type'              =>  'required',
-                'hours_before'      => 'required',
-                'charge_based_on'   => 'required',
-                'amount'            => 'required',
-            ]);
+            $this->validate($request, PolicyRuleStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Policy Rule Creation Failed!'], 409);
 
@@ -61,12 +58,7 @@ class PolicyRuleController extends Controller
     public function update($property_id, $policy_id, $id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'type'              => 'required',
-                'hours_before'      => 'required',
-                'charge_based_on'   => 'required',
-                'amount'            => 'required',
-            ]);
+            $this->validate($request, PolicyRuleStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Policy Rule Failed!'], 409);
 

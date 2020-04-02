@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 
 use App\Interfaces\RoomRateCalendarInterface;
 use App\Interfaces\RoomRateInterface;
+use App\Validators\RoomRateBulkUpdateValidator;
 use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
@@ -15,6 +16,8 @@ use  App\RoomType;
 use  App\RatePlan;
 
 use  App\Repositories\RoomRateRepository;
+use App\Validators\RoomRateStoreValidator;
+
 
 class RoomRateController extends Controller
 {
@@ -38,12 +41,7 @@ class RoomRateController extends Controller
     public function create($property_id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'room_type_id' => 'required',
-                'rate_plan_id' => 'required',
-                'rack_rate' => 'required',
-                'included_number_persons'   =>  'required'
-            ]);
+            $this->validate($request, RoomRateStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Room Rate Creation Failed!'], 409);
 
@@ -67,7 +65,7 @@ class RoomRateController extends Controller
     public function update($property_id, $id, Request $request) {
 
         try {
-            $this->validate($request, []);
+            $this->validate($request, RoomRateStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Room Type Update Failed!'], 409);
 
@@ -116,13 +114,7 @@ class RoomRateController extends Controller
     public function bulkUpdate($property_id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'room_type_id' => 'required',
-                'rate_plan_id' => 'required',
-                'from_date' => 'required',
-                'until_date'   =>  'required',
-                'rate_amount' => 'required'
-            ]);
+            $this->validate($request, RoomRateBulkUpdateValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Room Rate Calendar Creation Failed!'], 409);
 

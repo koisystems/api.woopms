@@ -9,8 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use App\Interfaces\PolicyInterface;
 
-use  App\Policy;
-
+use App\Validators\PolicyStoreValidator;
 
 class PolicyController extends Controller
 {
@@ -31,13 +30,8 @@ class PolicyController extends Controller
     public function create($property_id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'code' => 'required',
-                'has_guarantee' => 'required',
-                'has_deposit' => 'required',
-                'has_cancellation_penalty' => 'required',
-                'has_modification_penalty' => 'required',
-            ]);
+            $this->validate($request, PolicyStoreValidator::rules());
+
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Policy Creation Failed!'], 409);
 
@@ -61,13 +55,7 @@ class PolicyController extends Controller
     public function update($property_id, $id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'code' => 'required',
-                'has_guarantee' => 'required',
-                'has_deposit' => 'required',
-                'has_cancellation_penalty' => 'required',
-                'has_modification_penalty' => 'required',
-            ]);
+            $this->validate($request, PolicyStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Policy Failed!'], 409);
 

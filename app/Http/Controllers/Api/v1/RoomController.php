@@ -12,6 +12,8 @@ use  App\User;
 use  App\RoomType;
 use  App\Room;
 use  App\Interfaces\RoomInterface;
+use App\Validators\RoomStoreValidator;
+use App\Validators\RoomUpdateValidator;
 
 class RoomController extends Controller
 {
@@ -33,11 +35,7 @@ class RoomController extends Controller
     public function create($property_id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'room_type_id' => 'required',
-                'code' => 'required',
-                'title' => 'required',
-            ]);
+            $this->validate($request, RoomStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Room Creation Failed!'], 409);
 
@@ -61,10 +59,7 @@ class RoomController extends Controller
     public function update($property_id, $id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'code' => 'required',
-                'title' => 'required',
-            ]);
+            $this->validate($request, RoomUpdateValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Room Update Failed!'], 409);
 

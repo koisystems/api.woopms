@@ -11,7 +11,7 @@ use App\Interfaces\RatePlanInterface;
 
 use  App\User;
 use  App\RatePlan;
-
+use App\Validators\RatePlanStoreValidator;
 
 class RatePlanController extends Controller
 {
@@ -32,10 +32,7 @@ class RatePlanController extends Controller
     public function create($property_id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'code' => 'required',
-                'title' => 'required',
-            ]);
+            $this->validate($request, RatePlanStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'Rate Plan Creation Failed!'], 409);
 
@@ -59,10 +56,7 @@ class RatePlanController extends Controller
     public function update($property_id, $id, Request $request) {
 
         try {
-            $this->validate($request, [
-                'code' => 'required',
-                'title' => 'required',
-            ]);
+            $this->validate($request, RatePlanStoreValidator::rules());
         } catch( Illuminate\Validation\ValidationException $e) {
             return response()->json(['message' => 'RatePlan Update Failed!'], 409);
 
