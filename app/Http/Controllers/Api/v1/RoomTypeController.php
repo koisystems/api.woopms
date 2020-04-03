@@ -34,17 +34,15 @@ class RoomTypeController extends Controller
     public function create($property_id, Request $request) {
 
         try {
-            $roomType  =   $this->roomTypeService->create_room_type($property_id, $request);
-
+            return response()->json(
+                [
+                    'data'      => $this->roomTypeService->create_room_type($property_id, $request),
+                    'message'   => 'CREATED'
+                ],
+                201);
         } catch( \Exception $e) {
-
             return response()->json(['message' => 'Room Type Creation Failed!'], 409);
-
         }
-
-
-        return response()->json(['data' => $roomType, 'message' => 'CREATED'], 201);
-
 
     }
 
@@ -59,12 +57,16 @@ class RoomTypeController extends Controller
     public function update($property_id, $id, Request $request) {
 
         try {
-            $roomType  =   $this->roomTypeService->update_room_type($property_id, $id, $request);
+            return response()->json(
+                [
+                'data' => $this->roomTypeService->update_room_type($property_id, $id, $request),
+                'message' => 'UPDATED'
+                ],
+                201);
         } catch( \Exception $e) {
             return response()->json(['message' => 'Room Type Update Failed!'], 409);
         }
 
-        return response()->json(['data' => $roomType, 'message' => 'UPDATED'], 201);
 
     }
 
