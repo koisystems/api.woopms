@@ -18,6 +18,17 @@ class RoomTypesTest extends TestCase
 
     }
 
+    public function testUserCannotCreateRoomTypeWithoutMandatoryFields()
+    {
+
+        $this->post(env("API_ENDPOINT").'/1/roomtype', [
+            'code'  =>  'SINGLE'
+        ], $this->getHeaders());
+
+        $this->assertResponseStatus(409);
+
+    }
+
     public function testUserCanShowRoomType()
     {
 
@@ -57,6 +68,17 @@ class RoomTypesTest extends TestCase
             'code'  =>  'SINGLE2',
             'title' =>  'Single Room2'
         ]);
+    }
+
+    public function testUserCantUpdateRoomTypeWithoutMandatoryFields()
+    {
+
+        $this->put(env("API_ENDPOINT") . '/1/roomtype/1', [
+            'title' => 'Single Room2'
+        ], $this->getHeaders());
+
+        $this->assertResponseStatus(409);
+
     }
 
     public function testUserCanDeleteRoomType()

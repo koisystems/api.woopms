@@ -4,12 +4,14 @@ namespace App\Services;
 
 use App\Interfaces\RoomTypeInterface;
 use App\Services\Interfaces\RoomTypeServiceInterface;
+use App\Validators\RoomTypeStoreValidator;
 use Ramsey\Uuid\Type\Integer;
 use Illuminate\Http\Request;
 
 use League\Fractal;
 use League\Fractal\Manager;
 use App\Transformers\RoomTypeTransformer;
+use Validator;
 
 class RoomTypeService implements RoomTypeServiceInterface{
 
@@ -20,6 +22,10 @@ class RoomTypeService implements RoomTypeServiceInterface{
 
     public function create_room_type( int $property_id, Request $request) {
 
+        $validator = Validator::make($request->all(), RoomTypeStoreValidator::rules());
+        if ($validator->fails()) {
+            throw new \Exception();
+        }
 
         /** Is there a better way to do this ? */
         $requestData    =   [
@@ -36,6 +42,10 @@ class RoomTypeService implements RoomTypeServiceInterface{
     }
 
     public function update_room_type(int $property_id, int $room_inventory_id, Request $request) {
+        $validator = Validator::make($request->all(), RoomTypeStoreValidator::rules());
+        if ($validator->fails()) {
+            throw new \Exception();
+        }
 
         $roomType = $this->roomTypeRepository->update($room_inventory_id, $property_id, $request->all());
 

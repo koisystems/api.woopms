@@ -34,13 +34,14 @@ class RoomTypeController extends Controller
     public function create($property_id, Request $request) {
 
         try {
-            $this->validate($request, RoomTypeStoreValidator::rules());
-        } catch( Illuminate\Validation\ValidationException $e) {
+            $roomType  =   $this->roomTypeService->create_room_type($property_id, $request);
+
+        } catch( \Exception $e) {
+
             return response()->json(['message' => 'Room Type Creation Failed!'], 409);
 
         }
 
-        $roomType  =   $this->roomTypeService->create_room_type($property_id, $request);
 
         return response()->json(['data' => $roomType, 'message' => 'CREATED'], 201);
 
@@ -58,16 +59,12 @@ class RoomTypeController extends Controller
     public function update($property_id, $id, Request $request) {
 
         try {
-            $this->validate($request, RoomTypeStoreValidator::rules());
-        } catch( Illuminate\Validation\ValidationException $e) {
+            $roomType  =   $this->roomTypeService->update_room_type($property_id, $id, $request);
+        } catch( \Exception $e) {
             return response()->json(['message' => 'Room Type Update Failed!'], 409);
-
         }
 
-        $roomType  =   $this->roomTypeService->update_room_type($property_id, $id, $request);
-
         return response()->json(['data' => $roomType, 'message' => 'UPDATED'], 201);
-
 
     }
 
