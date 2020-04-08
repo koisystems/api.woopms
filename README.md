@@ -12,7 +12,6 @@ Soon to be completed
 
 Notes: This project is prepared to be deployed on AWS Lambda using the [Serverless Framework](https://github.com/serverless/serverless) and [Bref](https://github.com/brefphp/bref)
 
-
 ## User manual
 
 When available
